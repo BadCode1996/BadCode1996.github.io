@@ -1,0 +1,175 @@
+@CHARSET "UTF-8";
+body{
+	font-family:"宋体", tahoma,helvetica,arial,sans-serif;
+	font-size:14px;	
+	margin:0;
+	padding:10px;
+}
+body, ul, ol, li, div,span, p{
+	font-size:14px;
+	font-family:"宋体", tahoma,helvetica,arial,sans-serif;
+}
+
+.ui-overflow{
+	background-color:#ffffff;
+	position:fixed;
+	z-index:10;
+	text-align:center;
+	padding-top:100px;
+	width:100%;
+	height:700px;
+	top:0;
+	left:0;
+}
+.ui-paper-wrapper{
+	/*background-color:white;*/
+	text-align:left;
+	padding:10px 20px;
+}
+.ui-paper-wrapper .ui-paper-title{
+	font-size:22px;
+}
+.ui-paper-wrapper .ui-question-group{
+	margin:20px 0;
+	border-top:4px #91bfdb solid;
+}
+.ui-paper-wrapper .ui-question-group-title{
+	margin-bottom:10px;
+	font-size:20px;
+}
+.ui-paper-wrapper .ui-question-group-serial-no{
+	font-size:20px;
+}
+.ui-paper-wrapper .ui-question{
+	line-height:24px;
+	padding:6px;
+	border:1px dashed white;
+	border-radius:4px;
+	margin:5px 0;
+}
+.ui-paper-wrapper .ui-question p{
+	margin:0;
+	}
+.ui-paper-wrapper .ui-question .ui-question-title{
+	clear:both;
+	margin:0;
+	padding:0;
+}
+.ui-paper-wrapper .ui-question-title .ui-question-serial-no{
+	float:left;
+	display:inline-block;
+	width:35px;
+}
+.ui-paper-wrapper .ui-question-4 .ui-question-title .ui-question-serial-no{
+	float:left;
+	display:inline-block;
+	width:50px;
+}
+.ui-paper-wrapper .ui-question-title .ui-question-content-wrapper{
+	margin-left:35px;
+	margin-right:100px;
+}
+.ui-paper-wrapper .ui-question-title .ui-question-answer-error{
+	color:#d73027;
+	background:url('images/wrong.png') no-repeat left center;
+	padding-left: 20px;
+	display:block;
+	clear:both;
+}
+.ui-paper-wrapper .ui-question-title .ui-question-answer-right{
+	color:#0E931C;
+	background:url('images/right.png') no-repeat left center;
+	padding-left: 20px;
+	display:block;
+	clear:both;
+}
+.ui-paper-wrapper .ui-question-action-bar{
+	float:right;
+	width:80px;
+}
+.ui-paper-wrapper .ui-question-action-bar .ui-question-score{
+	color:#A5A5A5;
+	font-style:italic;
+	background:url('images/point.png') no-repeat right top;
+	padding-right:9px;
+	font-size:12px;
+}
+.ui-paper-wrapper .ui-question-options{
+	list-style:none;
+	padding:5px 0;
+	margin:0;
+	clear:both;
+}
+.ui-paper-wrapper .ui-question-options li{
+	clear:left;
+	padding-left:20px;
+	padding-top:2px;
+	padding-bottom:2px;
+	min-height:25px;
+	overflow: hidden;
+}
+.ui-paper-wrapper .ui-question-options .ui-correct-answer{
+	background:url('images/audit.png') no-repeat left 5px;
+}
+.ui-paper-wrapper .ui-question-options .ui-question-options-order{
+	text-indent:-100px;
+	float:left;
+	display:inline-block;
+	width:16px;
+	cursor:pointer;
+	padding-right:8px;
+}
+.ui-paper-wrapper .ui-question .ui-question-options .ui-question-content-wrapper{
+	display:inline-block;
+	vertical-align:top;
+	float:left;
+	max-width:90%;
+	padding-left:5px;
+	/*margin-left:15px;
+	margin-right:100px;*/
+}
+.ui-paper-wrapper .ui-question-1 .ui-question-options .ui-question-options-order{
+	background:url('images/radio.png') no-repeat left center;
+}
+
+.ui-paper-wrapper .ui-question-1 .ui-question-options li.ui-option-selected .ui-question-options-order{
+	background:url('images/radio_checked.png') no-repeat left center;
+}
+
+.ui-paper-wrapper .ui-question-2 .ui-question-options .ui-question-options-order{
+	background:url('images/checkbox.png') no-repeat left center;
+}
+
+.ui-paper-wrapper .ui-question-2 .ui-question-options li.ui-option-selected .ui-question-options-order{
+	background:url('images/checkbox_checked.png') no-repeat left center;
+}
+.ui-paper-wrapper .ui-question-hint{
+	border:1px dashed #91bfdb;
+	border-radius:2px;
+	opacity:.7;
+	background:url('images/light.png') no-repeat 5px 10px;
+	background-color:#e0f3f8;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:25px;
+	padding-right:5px;
+	display:block;
+	clear:both;
+}
+.ui-paper-wrapper .ui-question-hint p{
+	padding:0;
+	margin:0;
+}
+
+.ui-paper-wrapper .ui-question.undone{
+	background-color:#FFFFCC;
+	border:1px dashed #fc8d59;
+	border-radius:4px;
+	opacity:.7;
+	margin:5px 0;
+}/*未填题目检查后的样式*/
+
+.ui-paper-wrapper .ui-question-3 .ui-question-textarea{
+	width:380px;
+	height:100px;
+}

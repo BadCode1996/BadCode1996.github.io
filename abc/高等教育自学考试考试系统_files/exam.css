@@ -1,0 +1,195 @@
+@CHARSET "UTF-8";
+body{
+	margin:0;
+	background-color:#91bfdb;
+	overflow:hidden;
+}
+body,ul,li,ol,p,div,span{
+	font-size:14px;
+	font-family:"宋体", tahoma,helvetica,arial,sans-serif;
+}
+button{
+	display:inline-block;
+	margin-right:5px;
+	text-decoration:none;
+	cursor:pointer;
+	text-align:center;
+	overflow:hidden;
+	border:0px solid #ddd;
+	background-color: #dedede;
+	font-weight: normal;
+	color:#333333;
+	font-size:14px;
+	line-height:18px;
+	border-radius:3px;
+	padding: 4px 10px;
+	outline:none;
+}
+/*
+button:hover, button:focus, button:active{
+	background-color:#ffffff;
+}*/
+button.ui-action-submit{
+	background-color:#2e8ded;
+	color:white;
+	border-color:#3F6BA5;
+}
+#ui_wrapper{
+	width:100%;
+	text-align:center;
+	padding:10px 0;
+}
+#ui_wrapper .ui-head{
+	width:85%;
+	min-width:600px;
+	margin:0 auto;
+	font-family:"微软雅黑", tahoma,helvetica,arial,sans-serif
+}
+.ui-head .ui-left-time{
+	float:left;
+	border-radius:5px;
+	background-color:#fee090;
+	width:100px;
+	color:#333;
+	padding:3px 5px;
+	font-size:16px;
+	font-weight:bold;
+	display:inline;
+}
+.ui-head .ui-left-time.alert{
+	background-color:#d73027;
+	color:white;
+}/*时间倒数出现警告时的样式*/
+
+#ui_wrapper .ui-head .ui-info{
+	font-size:12px;
+	line-height:18px;
+	width:60%;
+	color:#fee090;
+}
+.ui-head .ui-action-bar{
+	float:right;
+	display:inline;
+}
+.ui-head .ui-action-bar button{
+	font-size:14px;
+	letter-spacing:2px;
+	line-height:20px;
+	padding:.2em 1em;
+	/*min-width:60px;*/
+	border-radius:5px;
+}
+.ui-head .ui-action-bar button.ui-action-submit{
+	background-color:#2e8ded;
+	color:white;
+	border-color:#d73027;
+}
+/*
+.ui-head .ui-action-bar button.ui-action-submit:hover,.ui-head .ui-action-bar button.ui-action-submit:focus,.ui-head .ui-action-bar button.ui-action-submit:active{
+	background-color:#FCAF8B;
+	border-color:#FB9869;
+}*/
+.ui-head .ui-action-bar button.ui-button-disabled{
+	cursor: not-allowed;
+	color: #B3B3B3;
+	background-color: #dedede;
+}
+/*.ui-paper-nav{
+	text-align:left;
+	z-index:3;
+	position:fixed;
+	right:15%;
+	background-color:#F2F2F2;
+	opacity:.8;
+	border:1px solid #CCC;
+	border-top-left-radius:2px;
+	border-bottom-left-radius:2px;
+	font-size:12px;
+}
+.ui-paper-nav.close{
+	width:25px;
+}
+.ui-paper-nav.open{
+	max-width:100px;
+}
+.ui-paper-nav.open li{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}*/
+	
+#ui_wrapper .ui-iframe-wrapper{
+	width:85%;
+	min-width:600px;
+	background-color:white;
+	margin:0 auto;
+	border-radius:10px;
+	clear:both;
+	padding:3px;
+}
+#ui_wrapper .ui-iframe-wrapper iframe{
+	width:100%;
+}
+#ui_wrapper .ui-popup-tip{
+	border-radius:2px;
+	display:inline-block;
+	position:absolute;
+	z-index:100;
+	border:4px solid #F2F2F2;
+	background-color:#FFFFFF;
+	min-width:200px;
+	max-width:600px;
+	text-align:center;
+}/*弹出提示框*/
+#ui_wrapper .ui-popup-tip .ui-info{
+	border:1px solid #CCC;
+}
+#ui_wrapper .ui-popup-tip .ui-info p{
+	font-size:12px;
+	line-height:18px;
+	padding:10px 20px;
+}
+#ui_wrapper .ui-popup-tip .ui-action-bar button{
+	margin:0 10px 10px 0;
+}
+#ui_wrapper .ui-popup-tip button.ui-action-submit:hover,#ui_wrapper .ui-popup-tip button.ui-action-submit:focus,#ui_wrapper .ui-popup-tip button.ui-action-submit:active{
+	background-color:#91bfdb;
+	border-color:#65A5CC;
+}
+#ui_wrapper .ui-info-wrapper{
+	text-align:left;
+	width:600px;
+	background-color:white;
+	margin:150px auto 0;
+	border-radius:10px;
+	clear:both;
+	padding:20px;
+}
+#ui_wrapper .ui-info-wrapper .ui-info{
+	font-size:16px;
+	line-height:28px;
+	text-align:center;
+	paddin:10px;
+}
+#ui_wrapper .ui-info-wrapper em{
+	font-weight:bold;
+	font-size:20px;
+	font-style:normal;
+	color:#d73027;
+}
+#ui_wrapper .ui-action-bar button{
+	margin-bottom:10px;
+}
+.ui-global-overlay{
+	background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
+	opacity: .80;filter:Alpha(Opacity=80);
+	position:fixed;
+	z-index:98;
+	text-align:center;
+	padding-top:100px;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	display:none;
+}
