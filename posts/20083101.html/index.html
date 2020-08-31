@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ES6新特性 | BadCode's Blog</title><meta name="description" content="let和const命令 var 之前，写js变量的时候。只有一个关键字：var 但var有一个问题，就是定义的变量有时候会成为全局变量。 例如： 1234for(var i &#x3D; 0; i &lt; 5; i++)&amp;#123;    console.log(i);&amp;#125;console.log(&quot;循环外：&quot; + i); 输出结果：  可以看出，在循环外部也可以获取到变量i的值，显然变量i的作用域"><meta name="keywords" content="JS"><meta name="author" content="BadCode"><meta name="copyright" content="BadCode"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.badcode.icu/posts/20083101.html/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="ES6新特性"><meta property="og:url" content="https://blog.badcode.icu/posts/20083101.html/"><meta property="og:site_name" content="BadCode's Blog"><meta property="og:description" content="let和const命令 var 之前，写js变量的时候。只有一个关键字：var 但var有一个问题，就是定义的变量有时候会成为全局变量。 例如： 1234for(var i &#x3D; 0; i &lt; 5; i++)&amp;#123;    console.log(i);&amp;#125;console.log(&quot;循环外：&quot; + i); 输出结果：  可以看出，在循环外部也可以获取到变量i的值，显然变量i的作用域"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/08/14/20200901004933.png"><meta property="article:published_time" content="2020-08-31T14:14:57.000Z"><meta property="article:modified_time" content="2020-08-31T19:08:03.151Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="next" title="错误日志" href="https://blog.badcode.icu/posts/20082501.html/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="/css/pool.min.css"><link rel="stylesheet" href="/css/VolantisTags.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/Hexo/css/iconfont.min.css"><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/image/20200706095911.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">13</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comments"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fa fa-images"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bars"></i><span> 菜单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="https://stack.badcode.icu" target="_blank" rel="noopener"><i class="fa-fw fas fa-star"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/emoji/"><i class="fa-fw fas fa-grin"></i><span> emoji标签</span></a></li></ul></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#let和const命令"><span class="toc-number">1.</span> <span class="toc-text">let和const命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#var"><span class="toc-number">1.1.</span> <span class="toc-text">var</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#let"><span class="toc-number">1.2.</span> <span class="toc-text">let</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const"><span class="toc-number">1.3.</span> <span class="toc-text">const</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串扩展"><span class="toc-number">2.</span> <span class="toc-text">字符串扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串模板"><span class="toc-number">3.</span> <span class="toc-text">字符串模板</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/08/14/20200901004933.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">BadCode's Blog</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comments"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fa fa-images"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-bars"></i><span> 菜单</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="https://stack.badcode.icu" target="_blank" rel="noopener"><i class="fa-fw fas fa-star"></i><span> 网址收藏</span></a></li><li><a class="site-page" href="/emoji/"><i class="fa-fw fas fa-grin"></i><span> emoji标签</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">ES6新特性</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-08-31 22:14:57"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-08-31</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-09-01 03:08:03"><i class="fas fa-history fa-fw"></i> 更新于 2020-09-01</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><i class="fas fa-angle-right post-meta__separator"></i><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/JS/">JS</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">476</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 1 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="far fa-comments fa-fw post-meta__icon"></i><span>评论数:</span><a href="/posts/20083101.html/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/posts/20083101.html/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="let和const命令">let和const命令</h2>
+<h3 id="var">var</h3>
+<p>之前，写js变量的时候。只有一个关键字：<code>var</code></p>
+<p>但<code>var</code>有一个问题，就是定义的变量有时候会成为全局变量。</p>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"循环外："</span> + i);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/09/01/20200901023609718.png" alt="image-20200901023609718"></p>
+<p>可以看出，在循环外部也可以获取到变量i的值，显然变量i的作用域范围太大了，在做复杂页面时，会带来很大的问<br>
+题。</p>
+<h3 id="let">let</h3>
+<p><code>let</code>所声明的变量，只在<code>let</code>所在的代码块内有效。</p>
+<p>例如：（把<code>var</code>改成<code>let</code>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"循环外："</span> + i);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/09/01/20200901025044999.png" alt="image-20200901023926392"></p>
+<p>这样，就把变量的i的作用域控制在了循环内部。</p>
+<h3 id="const">const</h3>
+<p><code>const</code>声明的变量是常量，不能被修改；类似于Java中的final关键字。</p>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"a = "</span> , a);</span><br><span class="line"><span class="comment">//给a重新赋值</span></span><br><span class="line">a = <span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"a = "</span> , a);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/09/01/20200901025044999.png" alt="image-20200901024309804"></p>
+<p>可以看到，变量a的值是不能修改的。</p>
+<h2 id="字符串扩展">字符串扩展</h2>
+<p>在ES6中，为字符串扩展了几个新的API</p>
+<ul>
+<li>includes(“xxx”)：返回布尔值，表示是否包含<strong>xxx</strong></li>
+<li>startsWith(“xxx”)：返回布尔值，表示是否以<strong>xxx</strong>开头</li>
+<li>endsWith(“xxx”)：返回布尔值,表示是否以<strong>xxx</strong>结尾</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">"Hello Javascript"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="string">"中是否包含 hello ==&gt;"</span>, str.includes(<span class="string">"hello"</span>));</span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="string">"中是否包含 hi ==&gt;"</span>, str.includes(<span class="string">"hi"</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="string">"中是否以 h 开头==&gt;"</span>, str.startsWith(<span class="string">"h"</span>));</span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="string">"中是否以 a 开头==&gt;"</span>, str.includes(<span class="string">"a"</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="string">"中是否以 a 结尾==&gt;"</span>, str.includes(<span class="string">"a"</span>));</span><br><span class="line"><span class="built_in">console</span>.log(str, <span class="string">"中是否以 t 结尾==&gt;"</span>, str.includes(<span class="string">"t"</span>));</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/09/01/20200901025044999.png" alt="image-20200901025044999"></p>
+<h2 id="字符串模板">字符串模板</h2>
+<p>ES6中提供了`来作为字符串模板标记。</p>
+<p>示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    <span class="keyword">let</span> str = <span class="string">`</span></span><br><span class="line"><span class="string">    hello</span></span><br><span class="line"><span class="string">    Java</span></span><br><span class="line"><span class="string">    and</span></span><br><span class="line"><span class="string">    JavaScript</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(str);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/09/01/20200901025408821.png" alt="image-20200901025408821"></p>
+<p>两个`之间的部分都会被记做字符串的值，可以任意换行。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">BadCode</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.badcode.icu/posts/20083101.html/">https://blog.badcode.icu/posts/20083101.html/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.badcode.icu" target="_blank">BadCode's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JS/">JS</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/07/25/微信图片_20200720092531.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><button class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/image/20200706095923.jpg" alt="微信" onclick="window.open('https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/image/20200706095923.jpg')"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/image/20200706095919.jpg" alt="支付宝" onclick="window.open('https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/image/20200706095919.jpg')"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></button></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/20082501.html/"><img class="next-cover" data-src="https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/08/31/009.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">错误日志</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail','link'],'nick,mail')
+let friends = '60892f8c4dd558e35210c1688b62d4c2,338cc937bcc4d5d04b04cfb3935274bd'.split(',')
+let master = '665535b71ae735c087ffb1a30ec3fae7'.split(',')
+let tagMeta = '博主,小伙伴,访客'.split(',')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '5UwgoFLTSSar9yvxLvtJdO8T-gzGzoHsz',
+  appKey: 'OlUMVrIYVMOxi2D4sVTyOUR9',
+  notify: false,
+  verify: false,
+  placeholder: '昵称栏输入QQ后按Tab键，可以自动获取你的昵称和邮箱哦',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'zh-CN',
+  recordIP: 'true',
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: true,
+  requiredFields: requiredFields,
+  master: master,
+  friends: friends,
+  tagMeta: tagMeta,
+  metaPlaceholder: {"nick":"昵称/QQ号(必填)","mail":"邮箱(必填)","link":"网址(https://)"}
+});</script></div></article></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/SevenKiss/imgPicGo/2020/08/14/20200901004933.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2020 By BadCode</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script defer id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/search/local-search.js"></script><script>if (document.getElementsByClassName('mermaid').length) {
+  loadScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js',function () {
+    mermaid.initialize({
+      theme: 'default',
+  })
+})
+}</script><script src="/js/VolantisTags.js"></script><script src="/js/calendar.js"></script><script src="/js/languages.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
